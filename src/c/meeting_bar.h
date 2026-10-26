@@ -5,7 +5,7 @@
 // full width under both the clock and the sidebar. emery only.
 #if defined(PBL_PLATFORM_EMERY)
 #define MEETING_BAR_ENABLED 1
-#define MEETING_BAR_HEIGHT 32
+#define MEETING_BAR_HEIGHT 40
 #else
 #define MEETING_BAR_ENABLED 0
 #define MEETING_BAR_HEIGHT 0

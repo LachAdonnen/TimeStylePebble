@@ -6,7 +6,7 @@
 #if MEETING_BAR_ENABLED
 
 // width of the left column holding the start time and relative time
-#define TIME_COLUMN_WIDTH 40
+#define TIME_COLUMN_WIDTH 52
 
 static Layer* meetingBarLayer;
 
@@ -66,8 +66,8 @@ static void update_meeting_bar(Layer* l, GContext* ctx) {
   const CalendarEvent* e = Calendar_getCurrentEvent(now, &inProgress);
 
   if (e == NULL) {
-    draw_text(ctx, "No more meetings", FONT_KEY_GOTHIC_14,
-              GRect(0, (bounds.size.h - 18) / 2, bounds.size.w, 18), GTextAlignmentCenter);
+    draw_text(ctx, "No more meetings", FONT_KEY_GOTHIC_18,
+              GRect(0, (bounds.size.h - 24) / 2, bounds.size.w, 24), GTextAlignmentCenter);
     return;
   }
 
@@ -77,10 +77,10 @@ static void update_meeting_bar(Layer* l, GContext* ctx) {
   format_relative_time(relativeText, sizeof(relativeText), e, inProgress, now);
 
   // left column: start time above relative time
-  draw_text(ctx, timeText, FONT_KEY_GOTHIC_18_BOLD,
-            GRect(0, -3, TIME_COLUMN_WIDTH, 22), GTextAlignmentCenter);
-  draw_text(ctx, relativeText, FONT_KEY_GOTHIC_14,
-            GRect(0, 14, TIME_COLUMN_WIDTH, 18), GTextAlignmentCenter);
+  draw_text(ctx, timeText, FONT_KEY_GOTHIC_24_BOLD,
+            GRect(0, -5, TIME_COLUMN_WIDTH, 28), GTextAlignmentCenter);
+  draw_text(ctx, relativeText, FONT_KEY_GOTHIC_18,
+            GRect(0, 17, TIME_COLUMN_WIDTH, 22), GTextAlignmentCenter);
 
   // divider
   graphics_context_set_stroke_color(ctx, settings.sidebarTextColor);
@@ -90,16 +90,16 @@ static void update_meeting_bar(Layer* l, GContext* ctx) {
   // right column: title above location (or end time if there's no location)
   int x = TIME_COLUMN_WIDTH + 4;
   int w = bounds.size.w - x - 2;
-  draw_text(ctx, e->title, FONT_KEY_GOTHIC_14_BOLD, GRect(x, -1, w, 18), GTextAlignmentLeft);
+  draw_text(ctx, e->title, FONT_KEY_GOTHIC_18_BOLD, GRect(x, -2, w, 22), GTextAlignmentLeft);
 
   if (e->location[0] != '\0') {
-    draw_text(ctx, e->location, FONT_KEY_GOTHIC_14, GRect(x, 14, w, 18), GTextAlignmentLeft);
+    draw_text(ctx, e->location, FONT_KEY_GOTHIC_18, GRect(x, 17, w, 22), GTextAlignmentLeft);
   } else if (e->end > e->start) {
     char endText[16];
     char endTime[8];
     format_clock_time(endTime, sizeof(endTime), e->end);
     snprintf(endText, sizeof(endText), "until %s", endTime);
-    draw_text(ctx, endText, FONT_KEY_GOTHIC_14, GRect(x, 14, w, 18), GTextAlignmentLeft);
+    draw_text(ctx, endText, FONT_KEY_GOTHIC_18, GRect(x, 17, w, 22), GTextAlignmentLeft);
   }
 }
 
