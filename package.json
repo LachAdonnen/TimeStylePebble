@@ -10,7 +10,7 @@
     "pebble-fctx": "^1.6.5"
   },
   "pebble": {
-    "displayName": "TimeStyle Cal",
+    "displayName": "TimeStyle Personalized",
     "uuid": "b1335e79-7c17-41a2-afa0-58fd0c318020",
     "sdkVersion": "3",
     "enableMultiJS": true,
