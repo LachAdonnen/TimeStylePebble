@@ -3,6 +3,7 @@
 #include "settings.h"
 #include "sidebar_widgets.h"
 #include "weather.h"
+#include "meeting_bar.h"
 #include <ctype.h>
 #include <math.h>
 #include <pebble.h>
@@ -58,9 +59,9 @@ void Sidebar_init(Window *window) {
 #else
   if (!settings.sidebarOnLeft) {
     bounds = GRect(screen_rect.size.w - sidebarWidth, 0, sidebarWidth,
-                   screen_rect.size.h);
+                   screen_rect.size.h - MEETING_BAR_HEIGHT);
   } else {
-    bounds = GRect(0, 0, sidebarWidth, screen_rect.size.h);
+    bounds = GRect(0, 0, sidebarWidth, screen_rect.size.h - MEETING_BAR_HEIGHT);
   }
 #endif
 
@@ -99,10 +100,10 @@ void Sidebar_redraw() {
   // reposition the sidebar if needed
   if (!settings.sidebarOnLeft) {
     layer_set_frame(sidebarLayer, GRect(screen_rect.size.w - sidebarWidth, 0,
-                                        sidebarWidth, screen_rect.size.h));
+                                        sidebarWidth, screen_rect.size.h - MEETING_BAR_HEIGHT));
   } else {
     layer_set_frame(sidebarLayer,
-                    GRect(0, 0, sidebarWidth, screen_rect.size.h));
+                    GRect(0, 0, sidebarWidth, screen_rect.size.h - MEETING_BAR_HEIGHT));
   }
 #endif
 

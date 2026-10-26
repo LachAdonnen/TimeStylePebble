@@ -28,6 +28,10 @@
       "health",
       "configurable"
     ],
+    "usesPermissions": [
+      "Calendar"
+    ],
+    "manifestVersion": 2,
     "watchapp": {
       "onlyShownOnCommunication": false,
       "hiddenApp": false,
@@ -63,7 +67,12 @@
       "WeatherUseNightIcon",
       "SettingWidget0ID",
       "SettingWidget1ID",
-      "SettingWidget2ID"
+      "SettingWidget2ID",
+      "EvtCount",
+      "EvtStart[3]",
+      "EvtEnd[3]",
+      "EvtTitle[3]",
+      "EvtLoc[3]"
     ],
     "resources": {
       "media": [

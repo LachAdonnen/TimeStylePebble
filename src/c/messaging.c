@@ -2,6 +2,7 @@
 #include "weather.h"
 #include "settings.h"
 #include "messaging.h"
+#include "calendar.h"
 
 void (*message_processed_callback)(void);
 
@@ -31,6 +32,13 @@ void messaging_init(void (*processed_callback)(void)) {
 }
 
 void inbox_received_callback(DictionaryIterator *iterator, void *context) {
+  // calendar events always arrive in their own message, so handle them
+  // separately and skip rewriting the settings
+  if(Calendar_handleMessage(iterator)) {
+    message_processed_callback();
+    return;
+  }
+
   bool weatherDataUpdated = false;
 
   // does this message contain current weather conditions?

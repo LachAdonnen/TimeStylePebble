@@ -1,5 +1,7 @@
 
 var weather = require('./weather');
+var calendar = require('./calendar');
+var msgQueue = require('./msgqueue');
 
 var CONFIG_VERSION = 9;
 // var BASE_CONFIG_URL = 'http://localhost:3001/';
@@ -20,6 +22,9 @@ Pebble.addEventListener('ready',
     if (window.localStorage.getItem('disable_weather') != 'yes') {
       weather.updateWeather();
     }
+
+    // start sending calendar events for the meeting bar (emery only)
+    calendar.start();
   }
 );
 
@@ -259,7 +264,7 @@ Pebble.addEventListener('webviewclosed', function (e) {
     console.log('Preparing message: ', JSON.stringify(dict));
 
     // Send settings to Pebble watchapp
-    Pebble.sendAppMessage(dict, function () {
+    msgQueue.send(dict, function () {
       console.log('Sent config data to Pebble, now trying to get weather');
 
       // after sending config data, force a weather refresh in case that changed

@@ -5,6 +5,8 @@
 #include "weather.h"
 #include "sidebar.h"
 #include "util.h"
+#include "calendar.h"
+#include "meeting_bar.h"
 
 // windows and layers
 static Window* mainWindow;
@@ -74,6 +76,8 @@ void redrawScreen() {
   Sidebar_redraw();
 
   ClockArea_redraw();
+
+  MeetingBar_redraw();
 }
 
 static void main_window_load(Window *window) {
@@ -84,11 +88,15 @@ static void main_window_load(Window *window) {
 
   ClockArea_init(window);
 
+  // create the next meeting bar (emery only)
+  MeetingBar_init(window);
+
   // Make sure the time is displayed from the start
   redrawScreen();
 }
 
 static void main_window_unload(Window *window) {
+  MeetingBar_deinit();
   ClockArea_deinit();
   Sidebar_deinit();
 }
@@ -122,6 +130,7 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   // redraw all screen
   Sidebar_redraw();
   ClockArea_redraw();
+  MeetingBar_redraw();
 }
 
 void bluetoothStateChanged(bool newConnectionState) {
@@ -178,6 +187,9 @@ static void init() {
 
   // init weather system
   Weather_init();
+
+  // load stored calendar events for the meeting bar
+  Calendar_init();
 
   // init the messaging thing
   messaging_init(redrawScreen);

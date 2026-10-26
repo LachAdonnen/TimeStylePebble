@@ -4,6 +4,7 @@
 #include "clock_area.h"
 #include "settings.h"
 #include "sidebar.h"
+#include "meeting_bar.h"
 
 #include <pebble-fctx/fctx.h>
 #include <pebble-fctx/fpath.h>
@@ -135,7 +136,8 @@ void ClockArea_init(Window* window) {
   screen_rect = layer_get_bounds(window_get_root_layer(window));
 
   GRect bounds;
-  bounds = GRect(0, 0, screen_rect.size.w, screen_rect.size.h);
+  // leave room for the meeting bar at the bottom (0 on most platforms)
+  bounds = GRect(0, 0, screen_rect.size.w, screen_rect.size.h - MEETING_BAR_HEIGHT);
 
   // init the clock area layer
   clock_area_layer = layer_create(bounds);
