@@ -1,5 +1,7 @@
 /* general utility stuff related to weather */
 
+var msgQueue = require('./msgqueue');
+
 var weatherProviders = {
   'openmeteo': require('./weather_openmeteo')
 };
@@ -106,7 +108,7 @@ function locationSuccess(pos) {
 
 function sendWeatherToPebble(dictionary) {
   // Send to Pebble
-  Pebble.sendAppMessage(dictionary,
+  msgQueue.send(dictionary,
     function(e) {
       console.log('Weather info sent to Pebble successfully!');
     },
